@@ -27,5 +27,6 @@ docker 化はしていないため、docker を使用する場合は適宜コー
 
 ```
 $ git clone https://github.com/Continuous-commit/go-docker.git
+$ cd go-docker
 $ docker-compose up
 ```
