@@ -1,24 +1,31 @@
 # web-service-gin
 
-ginとmysqlを使った簡単なwebアプリケーションです。
+gin と mysql を使った簡単な web アプリケーションです。
 
 ## mysql
 
-ホストでport 3306で起動してください。
+ホストで port 3306 で起動してください。
 
 ## 環境変数
 
-mysqlを使用するために以下の環境変数を設定してください
+mysql を使用するために以下の環境変数を設定してください
 
 - DBUSER
 - DBPASS
 
 ## database
 
-- myappでdatabaseを作成してください。
+- myapp で database を作成してください。
 
-- sqlディレクトリ以下にテーブル作成とseedデータ作成のsqlファイルを作成しているので実行してください
+- sql ディレクトリ以下にテーブル作成と seed データ作成の sql ファイルを作成しているので実行してください
 
 ## docker
 
-docker化はしていないため、dockerを使用する場合は適宜コードを書き換えてください。
+docker 化はしていないため、docker を使用する場合は適宜コードを書き換えてください。
+
+## 環境構築方法
+
+```
+$ git clone https://github.com/Continuous-commit/go-docker.git
+$ docker-compose up
+```
