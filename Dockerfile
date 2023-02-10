@@ -11,6 +11,16 @@ COPY . .
 
 RUN go build -o main /go/src/main.go
 
+CMD ["air", "-c", ".air.toml"]
+
+FROM alpine
+
+WORKDIR /go/src
+
+COPY --from=builder /go/src/main .
+
+COPY . .
+
 EXPOSE 8080
 
-CMD ["air", "-c", ".air.toml"]
+CMD [ "/go/src/main" ]
