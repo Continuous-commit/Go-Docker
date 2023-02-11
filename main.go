@@ -144,7 +144,7 @@ func ReadSQLFile(path string) (string, error) {
 
 func main() {
 	var err error
-	connection := "user:password@tcp(mysql_db)/myapp?charset=utf8&parseTime=True&loc=Local"
+	connection := "user:password@tcp(mysql)/myapp"
 	db, err = sql.Open("mysql", connection)
 	if err != nil {
 		log.Fatal(err)
