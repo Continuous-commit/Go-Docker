@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var db *sql.DB
@@ -133,17 +133,10 @@ func deleteAlbumByID(c *gin.Context) {
 }
 
 func main() {
-	config := mysql.Config{
-		User:                 os.Getenv("DBUSER"),
-		Passwd:               os.Getenv("DBPASS"),
-		Net:                  "tcp",
-		Addr:                 "127.0.0.1:3306",
-		DBName:               "myapp",
-		AllowNativePasswords: true,
-	}
-
 	var err error
-	db, err = sql.Open("mysql", config.FormatDSN())
+	db, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASSWORD"),
+	os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_DATABASE")))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -161,5 +154,5 @@ func main() {
 	router.PATCH("/albums/:id", updateAlbumByID)
 	router.DELETE("/albums/:id", deleteAlbumByID)
 
-	router.Run("localhost:8080")
+	router.Run()
 }
