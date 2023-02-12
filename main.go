@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -133,8 +134,9 @@ func deleteAlbumByID(c *gin.Context) {
 
 func main() {
 	var err error
-	connection := "user:password@tcp(mysql)/myapp"
-	db, err = sql.Open("mysql", connection)
+	db, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASSWORD"),
+	os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_DATABASE")))
 	if err != nil {
 		log.Fatal(err)
 	}
