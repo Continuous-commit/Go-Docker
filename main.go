@@ -1,12 +1,10 @@
 package main
 
 import (
-	"bytes"
 	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -133,15 +131,6 @@ func deleteAlbumByID(c *gin.Context) {
 	c.IndentedJSON(http.StatusNoContent, &album)
 }
 
-func ReadSQLFile(path string) (string, error) {
-	content, err := os.ReadFile(path)
-	if err != nil {
-			return "", err
-	}
-	b := bytes.NewBuffer(content)
-	return b.String(), nil
-}
-
 func main() {
 	var err error
 	connection := "user:password@tcp(mysql)/myapp"
@@ -155,26 +144,6 @@ func main() {
 		log.Fatal(pingErr)
 	}
 	fmt.Println("Connected!")
-
-	sql, err := ReadSQLFile("./sql/create_album.sql")
-	if err != nil {
-		log.Fatal(err)
-	}
-	result, err := db.Exec(sql)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(result)
-
-	sql, err = ReadSQLFile("./sql/album_seed.sql")
-	if err != nil {
-		log.Fatal(err)
-	}
-	result, err = db.Exec(sql)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(result)
 
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
